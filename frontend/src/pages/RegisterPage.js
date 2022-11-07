@@ -33,7 +33,7 @@ function RegisterPage() {
                                         </div>
                                     </form>
                                     <div className="new-account mt-3">
-                                        <p>Already have an account? <a className="text-primary" href="page-login.html">Sign in</a></p>
+                                        <p>Already have an account? <a className="text-primary" href="/">Sign in</a></p>
                                     </div>
                                 </div>
                             </div>

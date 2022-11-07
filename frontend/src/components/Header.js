@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import propic from '../img/1.png'
 
 function Header() {
   const { user, logoutUser } = useContext(AuthContext);
+  const history=useHistory()
   return (
     <div>
       {/* <Link to="/">Home</Link>
@@ -36,32 +37,33 @@ function Header() {
                     </div>
                   </a>
                   <div className="dropdown-menu dropdown-menu-end">
-                    <a href="./app-profile.html" className="dropdown-item ai-icon">
+                    <p  className="dropdown-item ai-icon">
                       <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                       <span className="ms-2">Profile </span>
-                    </a>
+                    </p>
                     
-                    <a href="./login.html" className="dropdown-item ai-icon">
+                    <p  className="dropdown-item ai-icon">
                       <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" className="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                       <span className="ms-2" onClick={logoutUser}>Logout </span>
-                    </a>
+                    </p>
                   </div>
                 </li>
               </ul>) :(
                 <ul className="navbar-nav header-right">
                 <li className="nav-item dropdown header-profile">
                   <a className="nav-link" href="/" role="button" data-bs-toggle="dropdown">
-                    <img src="images/profile/pic1.jpg" alt="" />
                     <div className="header-info ms-3">
                       <span className='btn btn-primary text-white'>Request</span>
                       {/* <small>Superadmin</small> */}
                     </div>
                   </a>
                   <div className="dropdown-menu dropdown-menu-end">
-                    <a href="./app-profile.html" className="dropdown-item ai-icon">
+                    <p  className="dropdown-item ai-icon">
                       <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                      <span className="ms-2"><Link to="/login">Login</Link></span>
-                    </a>
+                      <span className="ms-2" onClick={()=>{
+                        history.push('/login')
+                      }}>Login</span>
+                    </p>
                   </div>
                 </li>
               </ul>

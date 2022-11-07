@@ -1,11 +1,11 @@
 import React, { useEffect, useState,useContext } from 'react'
 import Header from '../components/Header'
-import SideBar from '../components/SideBar'
+import Logo from '../components/Logo'
 import AuthContext from '../context/AuthContext'
 
 function HomePage() {
   const [notes, setNotes] = useState([])
-  let {authTokens,logoutUser}=useContext(AuthContext)
+  let {authTokens,logoutUser,user}=useContext(AuthContext)
   useEffect(() => {
     getNotes()
 
@@ -27,14 +27,20 @@ function HomePage() {
   }
   return (
     <div>
+       
+      <Logo/>
         <Header/>
-        <SideBar/>
+        <div class="content-body">
+			<div class="container-fluid">
+        <h1 className='text-dark' >welcome to WeHelp.....</h1>
 
-        {/* <ul>
-          {notes.map(note=>(
+        <ul>
+          {user && notes.map(note=>(
             <li key={note.id}>{note.body}</li>
           ))}
-        </ul> */}
+        </ul>
+        </div>
+        </div>
     </div>
   )
 }
