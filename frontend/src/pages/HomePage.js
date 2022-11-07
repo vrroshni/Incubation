@@ -1,4 +1,6 @@
 import React, { useEffect, useState,useContext } from 'react'
+import Header from '../components/Header'
+import SideBar from '../components/SideBar'
 import AuthContext from '../context/AuthContext'
 
 function HomePage() {
@@ -25,13 +27,14 @@ function HomePage() {
   }
   return (
     <div>
-        
-        <p>You are logged to HomePage</p>
-        <ul>
+        <Header/>
+        <SideBar/>
+
+        {/* <ul>
           {notes.map(note=>(
             <li key={note.id}>{note.body}</li>
           ))}
-        </ul>
+        </ul> */}
     </div>
   )
 }

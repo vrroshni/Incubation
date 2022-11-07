@@ -4,12 +4,14 @@ import { useHistory } from "react-router-dom";
 
 const AuthContext = createContext();
 export default AuthContext;
+
 export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
       : null
   );
+
   const [user, setUser] = useState(() =>
     localStorage.getItem("authTokens")
       ? jwt_decode(localStorage.getItem("authTokens"))
@@ -17,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   );
   const [loading, setLoading] = useState(true);
   const history = useHistory();
+
 
   let loginUser = async (e) => {
     e.preventDefault();
@@ -31,6 +34,7 @@ export const AuthProvider = ({ children }) => {
       }),
     });
 
+
     let data = await response.json();
     console.log(data);
     if (response.status === 200) {
@@ -43,12 +47,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+
   let logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    history.push("/login");
+    history.push("/");
   };
+
 
   let updateToken = async () => {
     console.log("update token......");
@@ -67,10 +73,11 @@ export const AuthProvider = ({ children }) => {
     } else {
       logoutUser();
     }
-    if(loading){
-        setLoading(false)
+    if (loading) {
+      setLoading(false)
     }
   };
+
 
   let contextData = {
     user: user,
@@ -79,13 +86,14 @@ export const AuthProvider = ({ children }) => {
     logoutUser: logoutUser,
   };
 
+
   useEffect(() => {
-    if(loading){
-        updateToken()
+    if (loading) {
+      updateToken()
     }
 
 
-    let fourminutes = 1000* 60 * 4;
+    let fourminutes = 1000 * 60 * 4;
     let interval = setInterval(() => {
       if (authTokens) {
         updateToken();
@@ -94,9 +102,10 @@ export const AuthProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, [authTokens, loading]);
 
+
   return (
     <AuthContext.Provider value={contextData}>
-        {loading ?null: children}
-        </AuthContext.Provider>
+      {loading ? null : children}
+    </AuthContext.Provider>
   );
 };
