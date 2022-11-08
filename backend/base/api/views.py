@@ -4,12 +4,19 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import NoteSerializer
+from rest_framework.views import APIView
+from .serializers import *
 from base.models import *
+import json
+
+
+from django.contrib.auth.hashers import make_password
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
+        print('loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
         token = super().get_token(user)
 
         # Add custom claims
@@ -37,3 +44,20 @@ def getNotes(request):
     notes=user.note_set.all()
     serializer=NoteSerializer(notes,many=True)
     return Response(serializer.data)
+
+
+class UserSignup(APIView):
+    def post(self,request):
+        body = request.body.decode('utf-8')
+        body = json.loads(body)
+        username = body['username']
+        email = body['email']
+        password=body['password']
+        print(password)
+        user= User.objects.create(username=username,
+         email=email)
+        print(password)
+        user.make_password(password)
+        user.save()
+        
+        return Response(200)

@@ -1,6 +1,9 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import AuthContext from '../context/AuthContext'
+
 
 function RegisterPage() {
+let {userSignup } = useContext(AuthContext)
   return (
     <div className="vh-100">
        <div className="authincation h-100">
@@ -15,18 +18,18 @@ function RegisterPage() {
 										<a href="index.html"><img src="images/logo-full.png" alt=""/></a>
 									</div>
                                     <h4 className="text-center mb-4">Sign up your account</h4>
-                                    <form >
+                                    <form  onSubmit={userSignup}>
                                         <div className="mb-3">
                                             <label className="mb-1"><strong>Username</strong></label>
-                                            <input type="text" className="form-control" placeholder="username"/>
+                                            <input type="text" className="form-control" placeholder="username" name="name"/>
                                         </div>
                                         <div className="mb-3">
                                             <label className="mb-1"><strong>Email</strong></label>
-                                            <input type="email" className="form-control" placeholder="hello@example.com"/>
+                                            <input type="email" className="form-control" placeholder="hello@example.com" name="email"/>
                                         </div>
                                         <div className="mb-3">
                                             <label className="mb-1"><strong>Password</strong></label>
-                                            <input type="password" className="form-control" placeholder="Password" />
+                                            <input type="password" className="form-control" placeholder="Password" name="password" />
                                         </div>
                                         <div className="text-center mt-4">
                                             <button type="submit" className="btn btn-primary btn-block">Sign me up</button>

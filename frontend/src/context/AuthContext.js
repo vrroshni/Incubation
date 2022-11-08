@@ -1,9 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import { useHistory } from "react-router-dom";
+import axios from 'axios';
+import { useHistory, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 export default AuthContext;
+
 
 export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(
@@ -18,9 +20,23 @@ export const AuthProvider = ({ children }) => {
       : null
   );
   const [loading, setLoading] = useState(true);
+
   const history = useHistory();
 
 
+
+  let userSignup = async (e) => {
+    e.preventDefault();
+    let response = await axios.post("http://127.0.0.1:8000/register/",
+      { 'username': e.target.name.value, 'email': e.target.email.value, 'password': e.target.password.value })
+    if (response.status === 200) {
+      alert('registered')
+      history.push('/login')
+    }
+    else {
+
+    }
+  }
   let loginUser = async (e) => {
     e.preventDefault();
     let response = await fetch("http://127.0.0.1:8000/api/token/", {
@@ -84,6 +100,7 @@ export const AuthProvider = ({ children }) => {
     authTokens: authTokens,
     loginUser: loginUser,
     logoutUser: logoutUser,
+    userSignup: userSignup
   };
 
 
