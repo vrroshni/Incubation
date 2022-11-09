@@ -16,11 +16,11 @@ from django.contrib.auth.hashers import make_password
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
-        print('loginnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
         token = super().get_token(user)
 
         # Add custom claims
         token['username'] = user.username
+        token['is_superuser'] = user.is_superuser
         # ...
 
         return token
@@ -46,18 +46,3 @@ def getNotes(request):
     return Response(serializer.data)
 
 
-class UserSignup(APIView):
-    def post(self,request):
-        body = request.body.decode('utf-8')
-        body = json.loads(body)
-        username = body['username']
-        email = body['email']
-        password=body['password']
-        print(password)
-        user= User.objects.create(username=username,
-         email=email)
-        print(password)
-        user.make_password(password)
-        user.save()
-        
-        return Response(200)

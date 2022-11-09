@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
-import { useHistory, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 export default AuthContext;
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   );
   const [loading, setLoading] = useState(true);
 
-  const history = useHistory();
+  const Navigate = useNavigate();
 
 
 
@@ -31,12 +31,14 @@ export const AuthProvider = ({ children }) => {
       { 'username': e.target.name.value, 'email': e.target.email.value, 'password': e.target.password.value })
     if (response.status === 200) {
       alert('registered')
-      history.push('/login')
+      Navigate('/login')
     }
     else {
+      alert('......................')
 
     }
   }
+
   let loginUser = async (e) => {
     e.preventDefault();
     let response = await fetch("http://127.0.0.1:8000/api/token/", {
@@ -51,24 +53,35 @@ export const AuthProvider = ({ children }) => {
     });
 
 
+
     let data = await response.json();
     console.log(data);
     if (response.status === 200) {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      history.push("/");
+      loginAuth()
     } else {
       alert("something went wrong");
     }
   };
 
+  
+  let loginAuth = () => {
+    console.log({user},'qqq')
+    if (user.is_superuser === true) {
+      Navigate('/adminhome')
+    }
+    else {
+      Navigate('/')
+    }
+  }
 
   let logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    history.push("/");
+    Navigate("/");
   };
 
 

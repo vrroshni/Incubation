@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import propic from '../img/1.png'
 
 function Header() {
   const { user, logoutUser } = useContext(AuthContext);
-  const history = useHistory()
+  const Navigate = useNavigate()
   return (
     <div>
       <div className="header">
@@ -52,7 +52,7 @@ function Header() {
                       <p className="dropdown-item ai-icon">
                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         <span className="ms-2" onClick={() => {
-                          history.push('/login')
+                          Navigate('/login')
                         }}>Login</span>
                       </p>
                     </div>

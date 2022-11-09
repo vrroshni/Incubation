@@ -1,18 +1,11 @@
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
-import {Link,useHistory} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 function LoginPage() {
   const { loginUser } = useContext(AuthContext)
-  const history=useHistory()
   return (
     <div className="vh-100">
-      
-      {/* <form onSubmit={loginUser} >
-            <input type="text" name='username' placeholder='Enter username'/>
-            <input type="password" name='password' placeholder='Enter password'/>
-            <input type="submit" />
-        </form> */}
       <div className="authincation h-100">
         <div className="container h-100">
           <div className="row justify-content-center h-100 align-items-center">

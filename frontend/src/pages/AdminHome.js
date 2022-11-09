@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminSideBar from '../components/AdminSideBar'
+import AllApplications from '../components/AllApplications'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
 
@@ -8,13 +9,10 @@ function AdminHome() {
         <div>
             <Logo />
             <Header />
-            <AdminSideBar/>
-            <div class="content-body">
-                <div class="container-fluid">
-                    <h1 className='text-dark' >Hello Admin.</h1>
-                </div>
-            </div>
+            <AdminSideBar />
+            <AllApplications />
         </div>
+
     )
 }
 
