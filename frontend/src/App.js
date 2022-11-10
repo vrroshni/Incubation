@@ -7,6 +7,10 @@ import AdminHome from "./pages/AdminHome";
 import RegisterPage from './pages/RegisterPage'
 import { AuthProvider } from "./context/AuthContext";
 import ApplicationForm from "./pages/ApplicationForm";
+import AllApplications from "./components/AllApplications";
+import ApprovedApplications from "./components/ApprovedApplications";
+import PendingApplications from "./components/PendingApplications";
+import DeclinedApplications from "./components/DeclinedApplications";
 
 function App() {
   return (
@@ -17,13 +21,15 @@ function App() {
           {/* admin */}
           <Route path="/adminlogin" exact element={<AdminLogin/>} />
           <Route path="/adminhome" exact element={<AdminHome/>} />
-          
+          <Route path="/application" element={<ApplicationForm/>} />
+          <Route path="/applications" element={<AllApplications/>} />
+          <Route path="/approved" element={<ApprovedApplications/>} />
+          <Route path="/pending" element={<PendingApplications/>} />
+          <Route path="/rejected" element={<DeclinedApplications/>} />
           {/* user */}
           <Route path="/" exact element={<UserHomePage/>} />
           <Route path="/login" element={<UserLoginPage/>} />
           <Route path="/register" element={<RegisterPage/>} />
-          <Route path="/application" element={<ApplicationForm/>} />
-          
         </Routes>
         </AuthProvider>
       </Router>

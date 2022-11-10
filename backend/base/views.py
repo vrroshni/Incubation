@@ -44,3 +44,50 @@ class AllApplication(APIView):
             return Response(All.data,status=200)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+class PendingApplications(APIView):
+     def get(self,request):
+        approvedapplications=Application.objects.filter(status="PENDING")
+        print(approvedapplications)
+        All=AllApplicationserializer(approvedapplications,many=True)
+        if All :
+            return Response(All.data,status=200)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+class ApproveApplication(APIView):
+    def post(self,request,id):
+        application = Application.objects.filter(id=id)
+        application.update(status="APPROVED")
+        return Response (200)
+
+class ApprovedApplications(APIView):
+     def get(self,request):
+        approvedapplications=Application.objects.filter(status="APPROVED")
+        print(approvedapplications)
+        All=AllApplicationserializer(approvedapplications,many=True)
+        if All :
+            return Response(All.data,status=200)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+class RejectApplication(APIView):
+    def post(self,request,id):
+        print('decl................................')
+        application = Application.objects.filter(id=id)
+        application.update(status="DECLINED")
+        return Response (200)
+class RejectedApplications(APIView):
+     def get(self,request):
+        rejectedapplications=Application.objects.filter(status="DECLINED")
+        print(rejectedapplications)
+        All=AllApplicationserializer(rejectedapplications,many=True)
+        if All :
+            return Response(All.data,status=200)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+# class ApproveApplication(APIView):
+#     def post(self,request,id):
+#         application = Application.objects.get(id=id)
+#         application.update(status="APPROVED")
+#         return Response (200)
+
+        

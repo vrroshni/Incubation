@@ -6,13 +6,14 @@ function SideBar() {
 			<div className="deznav">
 				<div className="deznav-scroll">
 					<ul className="metismenu" id="menu">
-						<li><a className="has-arrow ai-icon" href="/" aria-expanded="false">
-							<i className="flaticon-025-dashboard"></i>
-							<span className="nav-text">Dashboard</span>
-						</a>
+						<li>
+							<a className="has-arrow ai-icon" aria-expanded="false">
+								<i className="flaticon-025-dashboard"></i>
+								<span className="nav-text">Dashboard</span>
+							</a>
 							<ul aria-expanded="false">
-								<li><a href="\">Dashboard Light</a></li>
-								<li><a href="\">Dashboard Dark</a></li>
+								<li><a >Dashboard Light</a></li>
+								<li><a >Dashboard Dark</a></li>
 
 							</ul>
 

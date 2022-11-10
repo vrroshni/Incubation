@@ -19,7 +19,6 @@ class NewApplicationserializer(ModelSerializer):
     class Meta:
         model=Application
         fields="__all__"
-    pending=serializers.BooleanField(default=True)
 class AllApplicationserializer(ModelSerializer):
     class Meta:
         model=Application

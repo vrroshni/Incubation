@@ -17,6 +17,7 @@ class Application(models.Model):
         ('APPROVED','APPROVED'),
             ) 
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    date=models.DateField(auto_now_add=True,null=True)
     fullname=models.CharField(max_length=50,null=True)
     phone=models.IntegerField(null=True)
     company_name=models.CharField(max_length=500,null=True)
@@ -26,7 +27,4 @@ class Application(models.Model):
     companyurl=models.CharField(max_length=50,null=True)
     TypeOfincubation=models.CharField(max_length=50,null=True)
     status=models.CharField(max_length=100, null=True,choices=STATUS,default="PENDING")
-    approved= models.BooleanField(default=False)
-    declined= models.BooleanField(default=False)
-    pending= models.BooleanField(default=True)
     allotted= models.BooleanField(default=False)
