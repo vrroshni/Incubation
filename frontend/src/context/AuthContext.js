@@ -23,13 +23,11 @@ export const AuthProvider = ({ children }) => {
   const[viewdetail,setviewdetails]=useState([])
 
   const Navigate = useNavigate();
-
-
-
   let userSignup = async (e) => {
-    e.preventDefault();
+    console.log(e)
+    // e.preventDefault();
     let response = await axios.post("http://127.0.0.1:8000/register/",
-      { 'username': e.target.name.value, 'email': e.target.email.value, 'password': e.target.password.value })
+      { 'username': e.name, 'email': e.email, 'password': e.password })
     if (response.status === 200) {
       Navigate('/login')
     }
