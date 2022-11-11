@@ -2,43 +2,30 @@ import React, { useEffect, useState,useContext } from 'react'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
 import AuthContext from '../context/AuthContext'
+import {useNavigate} from 'react-router-dom'
+import homepic from '../img/rocket.webp'
 
 function HomePage() {
   const [notes, setNotes] = useState([])
   let {authTokens,logoutUser,user}=useContext(AuthContext)
-  useEffect(() => {
-    getNotes()
-
-  }, [])
-  let getNotes = async() =>{
-    let response = await fetch('http://127.0.0.1:8000/api/notes/', {
-        method:'GET',
-        headers:{
-            'Content-Type':'application/json',
-            'Authorization':'Bearer ' + String(authTokens.access)
-        }
-    })
-    let data = await response.json()
-    if(response.status === 200){
-      setNotes(data)
-  }else if(response.statusText === 'Unauthorized'){
-      logoutUser()
-  }
-  }
+  const Navigate=useNavigate()
   return (
     <div>
        
       <Logo/>
         <Header/>
-        <div class="content-body">
-			<div class="container-fluid">
-        <h1 className='text-dark' >welcome to WeHelp.....</h1>
+        <div className="content-body" style={{marginLeft: "-4.437rem"}}>
+			  <div className="container-fluid">
+        <div className='text-center'>
+        <h1 className='text-primary' >Hey,Welcome {user && user.username}</h1>
+        <h3 className='mt-2'>Share your Million dollar ideas !</h3>
+        <button type="button" className="btn btn-primary btn-sm mt-2" onClick={()=>Navigate('/application')}>Express Your Ideas</button>
+        </div>
+        <div className='text-center'>
+          <img src={homepic} alt="HomePagePic" style={{ width: "664px"}} />
+        </div>
 
-        <ul>
-          {user && notes.map(note=>(
-            <li key={note.id}>{note.body}</li>
-          ))}
-        </ul>
+
         </div>
         </div>
     </div>

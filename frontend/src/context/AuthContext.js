@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
       : null
   );
   const [loading, setLoading] = useState(true);
+  const[viewdetail,setviewdetails]=useState([])
 
   const Navigate = useNavigate();
 
@@ -30,7 +31,6 @@ export const AuthProvider = ({ children }) => {
     let response = await axios.post("http://127.0.0.1:8000/register/",
       { 'username': e.target.name.value, 'email': e.target.email.value, 'password': e.target.password.value })
     if (response.status === 200) {
-      alert('registered')
       Navigate('/login')
     }
     else {
@@ -60,23 +60,17 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      loginAuth()
+      if(jwt_decode(data.access).is_superuser){
+        Navigate('/adminhome')
+      }else{
+        Navigate('/')
+      }
     } else {
       alert("something went wrong");
     }
   };
 
   
-  let loginAuth = () => {
-    console.log({user},'qqq')
-    if (user.is_superuser === true) {
-      Navigate('/adminhome')
-    }
-    else {
-      Navigate('/')
-    }
-  }
-
   let logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
@@ -108,12 +102,25 @@ export const AuthProvider = ({ children }) => {
   };
 
 
+
+  let viewDetails = (id)=> {
+    alert('going for  detailssssssssssss')
+    axios.get(`http://127.0.0.1:8000/viewdetail/${id}`).then((response)=>{
+      setviewdetails(response.data)
+      alert('got detailssssssssssss')
+
+})
+
+}
+
   let contextData = {
     user: user,
     authTokens: authTokens,
+    viewdetail:viewdetail,
     loginUser: loginUser,
     logoutUser: logoutUser,
-    userSignup: userSignup
+    userSignup: userSignup,
+    viewDetails:viewDetails
   };
 
 

@@ -35,6 +35,16 @@ class NewApplication(APIView):
             data=newapplication.errors
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+class UserApplications(APIView):
+     def post(self,request,id):
+        print(id,'uuuuuuserrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+        applications=Application.objects.filter(user=id)
+        All=AllApplicationserializer(applications,many=True)
+        if All :
+            return Response(All.data,status=200)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 class AllApplication(APIView):
      def get(self,request):
         allapplications=Application.objects.all()
@@ -84,10 +94,41 @@ class RejectedApplications(APIView):
             return Response(All.data,status=200)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-# class ApproveApplication(APIView):
-#     def post(self,request,id):
-#         application = Application.objects.get(id=id)
-#         application.update(status="APPROVED")
-#         return Response (200)
+class CreateSlot(APIView):
+    def post(self,request):
+        Slot.objects.create()
+        return Response(200)
 
-        
+class AllSlots(APIView):
+     def get(self,request):
+        allslots=Slot.objects.all()
+        All=Slotserializer(allslots,many=True)
+        if All :
+            return Response(All.data,status=200)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)        
+
+
+class AllotSlot(APIView):
+    def post(self,request):
+        body = request.body.decode('utf-8')
+        body = json.loads(body)
+        slotid=body['slotid']
+        applicantid=body['applicantid']
+        appli=Application.objects.get(id=applicantid)
+        appli.allotted=True
+        appli.save()
+        slot=Slot.objects.get(id=slotid)
+        slot.reservedby=appli
+        slot.is_available=False
+        slot.save()
+        return Response (status=200)
+
+class ViewDetail(APIView):
+    def get(self,request,id):
+        details=Application.objects.get(id=id)
+        list=AllApplicationserializer(details,many =False)
+        if list:
+            return Response(list.data,status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)

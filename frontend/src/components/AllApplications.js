@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
 import AdminSideBar from '../components/AdminSideBar'
 
 
 import axios from "axios";
+import AuthContext from '../context/AuthContext';
 
 function AllApplications() {
     const [data, setData] = useState([])
     const Swal = require("sweetalert2")
+    const { viewdetail, viewDetails } = useContext(AuthContext)
+
+    
     console.log(data, "ssssssssssssssssss")
     useEffect(() => {
         axios.get("http://127.0.0.1:8000/applications/").then((response) => {
             setData(response.data)
         })
     }, []);
+
     return (
         <div>
             <Logo />
@@ -22,51 +27,60 @@ function AllApplications() {
             <AdminSideBar />
             <div className='content-body'>
                 <div className='container-fluid'>
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header justify-content-center">
-                                <h3 class="card-title"><strong> ALL APPLICATIONS</strong></h3>
-                            </div>
-                            {data ? <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-responsive-md">
-                                        <thead>
-                                            <tr>
-                                                <th ><strong>#</strong></th>
-                                                <th><strong>DATE</strong></th>
-                                                <th><strong>DETAILS</strong></th>
-                                                <th><strong>VIEW</strong></th>
-                                                <th><strong>STATUS</strong></th>
-                                                <th><strong>ACTIONS</strong></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {data.map((list, id) => {
-                                                return (
-                                                    <tr>
-                                                        <td><strong>{id+1}</strong></td>
-                                                        <td>{list.date}</td>
-                                                        <td><a>
-                                                        <strong>#{list.id}</strong></a> by <strong>{list.fullname}</strong><br /><a >{list.email}</a><br />
-                                                        {list.company_name}
-                                                        </td>
-                                                        <td><span class="btn btn-rounded btn-primary btn-xxs">View</span></td>
-                                                        <td><span className={list.status === "PENDING" ? "btn btn-rounded btn-dark  btn-xxs" : list.status === "DECLINED" ? "btn btn-rounded btn-danger btn-xxs" : list.status === "APPROVED" ? "btn btn-rounded btn-success btn-xxs" : "btn btn-rounded btn-info btn-xxs"}>{list.status}</span></td>
-                                                        <td>{list.allotted==true||list.status === "DECLINED"?<span class="btn btn-rounded btn-primary btn-xxs">Completed<span
-                                                            class="ms-1 fa fa-check"></span></span>:<span class="btn btn-rounded btn-primary btn-xxs">Processing<span
-                                                            class="ms-1 fa fa-redo"></span></span>}
-                                                </td>
-                                                    </tr>
-                                                )
-                                            })}
+                    <div className="col-lg-12">
+                        {data.length === 0 ? (<div className="card">
 
-                                        </tbody>
-                                    </table>
+                            <div className="card-header justify-content-center">
+                                <h2 className="card-title"><strong>NO  APPLICATIONS AVAILABLE</strong></h2>
+                            </div></div>) : (
+                            <div className="card">
+                                <div className="card-header">
+                                    <h3 className="card-title"><strong> ALL APPLICATIONS</strong></h3>
                                 </div>
-                            </div>:
-                            <h1>No APPLICATIONS</h1>
-                            }
-                        </div>
+                                <div className="card-body">
+                                    <div className="table-responsive">
+                                        <table className="table table-responsive-md">
+                                            <thead>
+                                                <tr>
+                                                    <th ><strong>#</strong></th>
+                                                    <th><strong>DATE</strong></th>
+                                                    <th><strong>DETAILS</strong></th>
+                                                    <th><strong>VIEW</strong></th>
+                                                    <th><strong>STATUS</strong></th>
+                                                    <th><strong>ACTIONS</strong></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {data.map((list, id) => {
+                                                    return (
+                                                        <>
+                                                            <tr>
+                                                                <td><strong>{id + 1}</strong></td>
+                                                                <td>{list.date}</td>
+                                                                <td><a>
+                                                                    <strong>#{list.id}</strong></a> by <strong>{list.fullname}</strong><br /><a >{list.email}</a><br />
+                                                                    {list.company_name}
+                                                                </td>
+                                                                <td><span onClick={() => viewDetails(list.id)} data-bs-toggle="modal" data-bs-target="#exampleModalCenter"  className="btn btn-rounded btn-primary btn-xxs">View</span></td>
+                                                                <td><button className={list.status === "PENDING" ? "btn btn-rounded btn-dark  btn-xxs" : list.status === "DECLINED" ? "btn btn-rounded btn-danger btn-xxs" : list.status === "APPROVED" ? "btn btn-rounded btn-success btn-xxs" : "btn btn-rounded btn-info btn-xxs"}>{list.status}</button></td>
+                                                                <td>{list.allotted === true || list.status === "DECLINED" ? <span className="btn btn-rounded btn-primary btn-xxs">Completed<span
+                                                                    className="ms-1 fa fa-check"></span></span> : <span className="btn btn-rounded btn-primary btn-xxs">Processing<span
+                                                                        className="ms-1 fa fa-redo"></span></span>}
+                                                                </td>
+                                                            </tr>
+
+                                                        </>
+                                                    )
+                                                })}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>)}
+                        
                     </div>
 
                 </div>

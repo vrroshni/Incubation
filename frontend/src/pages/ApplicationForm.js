@@ -33,16 +33,12 @@ function ApplicationForm() {
   const uploadData = (e) => {  
     e.preventDefault();
     const formSent = new FormData();
-    console.log(details,'detailsssssssssssssssssssssssssssssss')
     for (let key in details) {
       formSent.append(key, details[key]);
     }
     
-    console.log(formSent,'formmmmmmmmmmmmmmmmmmmmmmmmmm')
     axios.post('http://127.0.0.1:8000/newapplication/',formSent).then((response)=>{
-      console.log(response)
-      console.log(response.status)
-      alert('response.................',response.status)
+      
   })
   };
   return (

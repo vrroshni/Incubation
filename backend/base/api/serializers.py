@@ -23,4 +23,9 @@ class AllApplicationserializer(ModelSerializer):
     class Meta:
         model=Application
         fields="__all__"
+
+class Slotserializer(ModelSerializer):
+    class Meta:
+        model=Slot
+        fields="__all__"
     

@@ -5,4 +5,5 @@ from .models import *
 admin.site.register(Note)
 admin.site.register(AllUserDetails)
 admin.site.register(Application)
+admin.site.register(Slot)
 

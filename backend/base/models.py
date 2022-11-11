@@ -28,3 +28,7 @@ class Application(models.Model):
     TypeOfincubation=models.CharField(max_length=50,null=True)
     status=models.CharField(max_length=100, null=True,choices=STATUS,default="PENDING")
     allotted= models.BooleanField(default=False)
+
+class Slot(models.Model):
+    reserved_by=models.ForeignKey(Application,on_delete=models.CASCADE,null=True)
+    is_available=models.BooleanField(default=True)
