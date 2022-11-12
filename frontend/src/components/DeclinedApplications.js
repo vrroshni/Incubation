@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext  } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
 import AdminSideBar from '../components/AdminSideBar'
@@ -74,6 +74,30 @@ function DeclinedApplications() {
                                     <h1>NO REJECTED APPLICATIONS</h1>}
                             </div>)}
                     </div>
+                </div>
+            </div>
+            <div className="modal fade" id="exampleModalCenter">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+
+                    <div className="modal-content">
+                        <div className="modal-header text-center">
+                            <h5 className="modal-title">{viewdetail && viewdetail.company_name} </h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal">
+                            </button>
+                        </div>
+                        <div className="modal-body text-center ">
+                            <p>Applied on:{viewdetail && viewdetail.date}</p>
+                            <b>Details:</b>
+                            <a>
+                                <strong>#{ viewdetail && viewdetail.id}</strong></a> by <strong>{viewdetail && viewdetail.fullname}</strong><br /><a >{viewdetail.email}</a><br />
+                            {viewdetail && viewdetail.company_name} <br />
+                            Stats:<span className="btn btn-rounded btn-primary btn-xxs">{viewdetail && viewdetail.status}</span>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" data-bs-dismiss="modal" className="btn btn-danger light">Close</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

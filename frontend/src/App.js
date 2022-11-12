@@ -15,6 +15,8 @@ import PrivateRoute from "./utils/PrivateRoute";
 import Restricted from "./pages/Restricted";
 import AllSlots from "./components/AllSlots";
 import Profile from "./components/Profile";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -51,6 +53,7 @@ function App() {
         
         </AuthProvider>
       </Router>
+      <ToastContainer />
     </div>
   );
 }

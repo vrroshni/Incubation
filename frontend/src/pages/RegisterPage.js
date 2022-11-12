@@ -12,7 +12,7 @@ function RegisterPage() {
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange"
     });
-    const registerOptions = {
+      const registerOptions = {
         name: { required: "Name is required" },
         email: {
             required: 'Email is required.',

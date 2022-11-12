@@ -1,9 +1,27 @@
 import React, { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function LoginPage() {
   const { loginUser } = useContext(AuthContext)
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: "onChange"
+  });
+
+  const registerOptions = {
+    username: { required: "Name is required" },
+    password: {
+      required: "Password is required",
+      minLength: {
+        value: 8,
+        message: "Password will have at least 8 characters"
+      }
+    }
+  };
   return (
     <div className="vh-100">
       <div className="authincation h-100">
@@ -18,22 +36,28 @@ function LoginPage() {
                         <a href="\"><img src="images/logo-full.png" alt="" /></a>
                       </div>
                       <h4 className="text-center mb-4">Sign in your account</h4>
-                      <form onSubmit={loginUser}>
+                      <form onSubmit={handleSubmit(loginUser)}>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Username</strong></label>
-                          <input type="text" className="form-control" name='username' placeholder='Username' />
+                          <input type="text" className="form-control" name='username' placeholder='Username' {...register('username', registerOptions.username)} />
+                          <small className="text-danger">
+                            {errors?.username && errors.username.message}
+                          </small>
                         </div>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Password</strong></label>
-                          <input type="password" className="form-control" name='password' placeholder="Password" />
+                          <input type="password" className="form-control" name='password' placeholder="Password" {...register('password', registerOptions.password)} />
+                          <small className="text-danger">
+                            {errors?.password && errors.password.message}
+                          </small>
                         </div>
-                        
+
                         <div className="text-center">
                           <button type="submit" className="btn btn-primary btn-block">Sign Me In</button>
                         </div>
                       </form>
                       <div className="new-account mt-3">
-                        <p>Don't have an account? <span className="text-primary" ><Link to='/register' style={{color:"#1362fc"}}> Sign up</Link></span></p>
+                        <p>Don't have an account? <span className="text-primary" ><Link to='/register' style={{ color: "#1362fc" }}> Sign up</Link></span></p>
                       </div>
                     </div>
                   </div>
@@ -43,7 +67,9 @@ function LoginPage() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
+    
   )
 }
 

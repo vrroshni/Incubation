@@ -65,13 +65,6 @@ function AllSlots() {
             <AdminSideBar />
             <div className="content-body">
                 <div className="container-fluid">
-                    {/* <div className="row page-titles">
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item active"><a href="/">Advanced</a></li>
-                            <li className="breadcrumb-item"><a href="/">lightGallery</a></li>
-                        </ol>
-                    </div> */}
-
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="card">
@@ -116,7 +109,7 @@ function AllSlots() {
                                                                             <div className="card-body">
                                                                                 <div id="DZ_W_Todo3" className="widget-media dz-scroll height370">
                                                                                     <ul className="timeline">
-                                                                                        {applicant.allotted ? applicant.map((list, id) => {
+                                                                                        {  applicant.map((list, id) => {
                                                                                             return (
                                                                                                 <li key={id}>
                                                                                                     <div className="timeline-panel d-flex">
@@ -134,7 +127,7 @@ function AllSlots() {
                                                                                                 </li>
 
                                                                                             )
-                                                                                        }) : <h4>APPROVED APPLICATIONS NOT AVAILABLE</h4> }
+                                                                                        }) }
                                                                                     </ul>
                                                                                 </div>
                                                                             </div>
@@ -144,9 +137,7 @@ function AllSlots() {
 
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                </>
+                                                    </div>                                                </>
                                             )
                                         })}
                                         <br />
@@ -157,10 +148,6 @@ function AllSlots() {
                     </div>
                 </div>
             </div>
-
-
-
-
         </>
     )
 }

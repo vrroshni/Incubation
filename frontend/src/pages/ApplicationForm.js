@@ -3,10 +3,16 @@ import Header from "../components/Header";
 import Logo from "../components/Logo";
 import axios from "axios"
 import AuthContext from "../context/AuthContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useNavigate} from 'react-router-dom'
 
 
 function ApplicationForm() {
   const {user} = useContext(AuthContext)
+  const Swal = require("sweetalert2")
+  const Navigate=useNavigate()
+
   console.log(user.user_id)
   const [details, setDetails] = useState({
     user:user.user_id,
@@ -19,6 +25,8 @@ function ApplicationForm() {
     companyurl:"",
     TypeOfincubation:""
   });
+
+  
   const uploadImage = (e) => {
     const file = e.target.files[0];
     setDetails({ ...details, image: file });
@@ -39,6 +47,31 @@ function ApplicationForm() {
     
     axios.post('http://127.0.0.1:8000/newapplication/',formSent).then((response)=>{
       
+      setDetails('')
+      toast.success('Your Application is Submitted! ', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      Navigate('/')
+      
+  }).catch((error)=>{
+    toast.success('Something went wrong !', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+
   })
   };
   return (

@@ -1,9 +1,12 @@
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
 import AdminSideBar from '../components/AdminSideBar'
 import axios from "axios";
 import AuthContext from '../context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function PendingApplications() {
     const [data, setData] = useState([])
@@ -24,18 +27,29 @@ function PendingApplications() {
 
     const approveList = (id) => {
         Swal.fire({
-            title: "are you sure",
-            text: "approve the list",
-            icon: "warning",
+            title: "Are you sure ",
+            text: " you want to approve the Application?",
+            icon: "success",
             showCancelButton: "true",
             confirmButtonColor: "#3085D6",
             cancelButtonColor: "#d33",
             confirmButtonText: "YES,Approve",
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`http://127.0.0.1:8000/approve/${id}/`).then(() =>
+                axios.post(`http://127.0.0.1:8000/approve/${id}/`).then(() => {
+                    toast.info('Application Approved!', {
+                        position: "top-right",
+                        autoClose: 6000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
 
-                    window.location.reload())
+                    window.location.reload()
+                })
             }
         })
         console.log(data)
@@ -43,16 +57,31 @@ function PendingApplications() {
 
     const declineList = (id) => {
         Swal.fire({
-            title: "are you sure",
-            text: "decline the list",
+            title: "Are you sure",
+            text: "you want to decline the Application?",
             icon: "warning",
             showCancelButton: "true",
             confirmButtonColor: "#3085D6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "YES,decline",
+            confirmButtonText: "YES,reject",
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.post(`http://127.0.0.1:8000/reject/${id}/`).then(() => window.location.reload())
+                axios.post(`http://127.0.0.1:8000/reject/${id}/`).then(() => {
+                    toast.info('Application Rejected!', {
+                        position: "top-right",
+                        autoClose: 6000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
+                    window.location.reload()
+
+                })
+
+
             }
         })
     }
@@ -114,6 +143,30 @@ function PendingApplications() {
 
                 </div>
 
+            </div>
+            <div className="modal fade" id="exampleModalCenter">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+
+                    <div className="modal-content">
+                        <div className="modal-header text-center">
+                            <h5 className="modal-title">{viewdetail && viewdetail.company_name} </h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal">
+                            </button>
+                        </div>
+                        <div className="modal-body text-center ">
+                            <p>Applied on:{viewdetail && viewdetail.date}</p>
+                            <b>Details:</b>
+                            <a>
+                                <strong>#{ viewdetail && viewdetail.id}</strong></a> by <strong>{viewdetail && viewdetail.fullname}</strong><br /><a >{viewdetail.email}</a><br />
+                            {viewdetail && viewdetail.company_name} <br />
+                            Stats:<span className="btn btn-rounded btn-primary btn-xxs">{viewdetail && viewdetail.status}</span>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" data-bs-dismiss="modal" className="btn btn-danger light">Close</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     )
