@@ -53,14 +53,14 @@ function SideBar() {
 								<span className="nav-text">SLOT BOOKING</span>
 							</a>
 						</li>
-						<li>
+						{/* <li>
 							<a className="has-arrow ai-icon" aria-expanded="false" onClick={() => {
-								Navigate('/allotted')
+								Navigate('/alloted')
 							}}>
 								<i className="flaticon-025-dashboard"></i>
 								<span className="nav-text">ALLOTTED</span>
 							</a>
-						</li>
+						</li> */}
 					</ul>
 					<div className="copyright">
 						<p><strong>WeHelp</strong> © 2022 All Rights Reserved</p>

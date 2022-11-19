@@ -40,6 +40,20 @@ function ApplicationForm() {
   };
   const uploadData = (e) => {  
     e.preventDefault();
+    console.log(details.image)
+    if(details.image===''){
+      toast.error('Upload LOGO! ', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
+    }
     const formSent = new FormData();
     for (let key in details) {
       formSent.append(key, details[key]);
