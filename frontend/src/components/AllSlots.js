@@ -43,11 +43,9 @@ function AllSlots() {
     }
     //creating slots
     const CreateSlot = () => {
-        console.log('slot here.............')
         axios
             .post("http://127.0.0.1:8000/createslot/")
             .then((response) => {
-                console.log("responsee slottt", response.status);
             })
         forceUpdate()
     }
@@ -111,10 +109,13 @@ function AllSlots() {
                                                                                     <ul className="timeline">
                                                                                         {  applicant.map((list, id) => {
                                                                                             return (
+                                                                                                
                                                                                                 <li key={id}>
+                                                                                                    {!list.allotted &&
+                                                                                                    <>
                                                                                                     <div className="timeline-panel d-flex">
                                                                                                         <div className="media me-2">
-                                                                                                            <img alt="image" width="50" src="images/avatar/1.jpg" />
+                                                                                                            <img alt="image" width="50" src={`http://127.0.0.1:8000${list.image}`} />
                                                                                                         </div>
                                                                                                         <div className="media-body" >
                                                                                                             <h5 className="mb-1"> {list.company_name} <small className="text-muted">{list.date}</small></h5>
@@ -124,6 +125,7 @@ function AllSlots() {
                                                                                                         <a data-bs-dismiss="modal" onClick={() => AssignSlot(list.id)} className="btn btn-primary btn-xxs shadow">ALLOT SLOT</a>
                                                                                                     </div>
                                                                                                     <hr />
+                                                                                                    </>}
                                                                                                 </li>
 
                                                                                             )

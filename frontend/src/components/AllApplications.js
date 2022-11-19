@@ -95,13 +95,24 @@ function AllApplications() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal">
                             </button>
                         </div>
-                        <div className="modal-body text-center ">
-                            <p>Applied on:{viewdetail && viewdetail.date}</p>
-                            <b>Details:</b>
-                            <a>
-                                <strong>#{ viewdetail && viewdetail.id}</strong></a> by <strong>{viewdetail && viewdetail.fullname}</strong><br /><a >{viewdetail.email}</a><br />
-                            {viewdetail && viewdetail.company_name} <br />
-                            Stats:<span className="btn btn-rounded btn-primary btn-xxs">{viewdetail && viewdetail.status}</span>
+                        <div className="modal-body ">
+                            <div class="dz-image-bx rounded d-flex justify-content-around">
+                                <div class="dz-media active me-3">
+                                    <img class="rounded" src={`http://127.0.0.1:8000${viewdetail.image}`} alt="" style={{
+                                        height: "7.5rem",
+                                        width: "8.5rem"
+                                    }} />
+                                </div>
+                                <div class="dz-info">
+                                    <h5>{viewdetail && viewdetail.company_name}</h5>
+                                    <p className='text-primary'>Applied on:{viewdetail && viewdetail.date}</p>
+                                    <b>Details:</b>
+                                    <a>
+                                        <strong>#{viewdetail && viewdetail.id}</strong></a> by <strong>{viewdetail && viewdetail.fullname}</strong><br /><a >{viewdetail.email}</a><br />
+                                    {viewdetail && viewdetail.company_name} <br />
+                                    Status:<button className={viewdetail && viewdetail.status === "PENDING" ? "btn btn-rounded btn-dark  btn-xxs ms-2" : viewdetail && viewdetail.status === "DECLINED" ? "btn btn-rounded btn-danger btn-xxs ms-2" : viewdetail && viewdetail.status === "APPROVED" ? "btn btn-rounded btn-success btn-xxs ms-2" : "btn btn-rounded btn-info btn-xxs ms-2"}>{viewdetail && viewdetail.status}</button>
+                                </div>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" data-bs-dismiss="modal" className="btn btn-danger light">Close</button>

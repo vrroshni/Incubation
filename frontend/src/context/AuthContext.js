@@ -146,10 +146,8 @@ export const AuthProvider = ({ children }) => {
 
 
   let viewDetails = (id) => {
-    alert('going for  detailssssssssssss')
     axios.get(`http://127.0.0.1:8000/viewdetail/${id}`).then((response) => {
       setviewdetails(response.data)
-      alert('got detailssssssssssss')
 
     })
 

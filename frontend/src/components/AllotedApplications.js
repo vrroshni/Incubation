@@ -1,23 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Header from '../components/Header'
-import Logo from '../components/Logo'
-import AdminSideBar from '../components/AdminSideBar'
-import AuthContext from '../context/AuthContext';
+import React from 'react'
 
-
-import axios from "axios";
-
-function DeclinedApplications() {
+function AllotedApplications() {
     const [data, setData] = useState([])
+    const Swal = require("sweetalert2")
     const { viewdetail, viewDetails } = useContext(AuthContext)
 
-    const Swal = require("sweetalert2")
+
     console.log(data, "ssssssssssssssssss")
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/rejected/").then((response) => {
+        axios.get("http://127.0.0.1:8000/applications/").then((response) => {
             setData(response.data)
         })
     }, []);
+
     return (
         <div>
             <Logo />
@@ -29,20 +24,20 @@ function DeclinedApplications() {
                         {data.length === 0 ? (<div className="card">
 
                             <div className="card-header justify-content-center">
-                                <h2 className="card-title"><strong>NO DECLINED APPLICATIONS LEFT</strong></h2>
+                                <h2 className="card-title"><strong>NO  APPLICATIONS AVAILABLE</strong></h2>
                             </div></div>) : (
                             <div className="card">
-                                <div className="card-header ">
-                                    <h3 className="card-title"><strong>DECLINED APPLICATIONS</strong></h3>
+                                <div className="card-header">
+                                    <h3 className="card-title"><strong> ALLOTTED APPLICATIONS</strong></h3>
                                 </div>
-                                {data && <div className="card-body">
+                                <div className="card-body">
                                     <div className="table-responsive">
                                         <table className="table table-responsive-md">
                                             <thead>
                                                 <tr>
-                                                    <th><strong>#</strong></th>
+                                                    <th ><strong>#</strong></th>
                                                     <th><strong>DATE</strong></th>
-                                                    <th><strong>NAME</strong></th>
+                                                    <th><strong>DETAILS</strong></th>
                                                     <th><strong>VIEW</strong></th>
                                                     <th><strong>STATUS</strong></th>
                                                     <th><strong>ACTIONS</strong></th>
@@ -51,29 +46,42 @@ function DeclinedApplications() {
                                             <tbody>
                                                 {data.map((list, id) => {
                                                     return (
-                                                        <tr>
-                                                            <td><strong>{id + 1}</strong></td>
-                                                            <td>{list.date}</td>
-                                                            <td><a>
-                                                                <strong>#{list.id}</strong></a> by <strong>{list.fullname}</strong><br /><a >{list.email}</a><br />
-                                                                {list.company_name}
-                                                            </td>
-                                                            <td><span onClick={() => viewDetails(list.id)} data-bs-toggle="modal" data-bs-target="#exampleModalCenter" className="btn btn-rounded btn-primary btn-xxs">View</span></td>
-                                                            <td><span className="btn btn-rounded btn-danger btn-xxs" >{list.status}</span></td>
-                                                            <td><span className="btn btn-rounded btn-primary btn-xxs">Completed<span
-                                                                className="ms-1 fa fa-check"></span></span>
-                                                            </td>
-                                                        </tr>
+                                                       
+                                                       
+                                                            <tr>
+                                                            {list.allotted &&
+                                                             <>
+                                                                <td><strong>{id + 1}</strong></td>
+                                                                <td>{list.date}</td>
+                                                                <td><a>
+                                                                    <strong>#{list.id}</strong></a> by <strong>{list.fullname}</strong><br /><a >{list.email}</a><br />
+                                                                    {list.company_name}
+                                                                </td>
+                                                                <td><span onClick={() => viewDetails(list.id)} data-bs-toggle="modal" data-bs-target="#exampleModalCenter" className="btn btn-rounded btn-primary btn-xxs">View</span></td>
+                                                                <td><button className="btn btn-rounded btn-info btn-xxs">{list.status}</button></td>
+                                                                <td><span className="btn btn-rounded btn-primary btn-xxs">Completed<span
+                                                                    className="ms-1 fa fa-check"></span></span>
+                                                                </td>
+                                                                  </>
+                                                                }
+                                                            </tr>
+
+                                                      
                                                     )
                                                 })}
 
                                             </tbody>
                                         </table>
                                     </div>
-                                </div> }
+                                </div>
+
+
                             </div>)}
+
                     </div>
+
                 </div>
+
             </div>
             <div className="modal fade" id="exampleModalCenter">
                 <div className="modal-dialog modal-dialog-centered" role="document">
@@ -109,9 +117,8 @@ function DeclinedApplications() {
                     </div>
 
                 </div>
-            </div>
-        </div>
+            </div></div>
     )
 }
 
-export default DeclinedApplications
+export default AllotedApplications

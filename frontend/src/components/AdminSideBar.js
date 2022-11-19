@@ -54,7 +54,9 @@ function SideBar() {
 							</a>
 						</li>
 						<li>
-							<a className="has-arrow ai-icon" aria-expanded="false">
+							<a className="has-arrow ai-icon" aria-expanded="false" onClick={() => {
+								Navigate('/allotted')
+							}}>
 								<i className="flaticon-025-dashboard"></i>
 								<span className="nav-text">ALLOTTED</span>
 							</a>

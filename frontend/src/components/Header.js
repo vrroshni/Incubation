@@ -19,7 +19,7 @@ function Header() {
         showCancelButton:"true",
         confirmButtonColor:"#3085D6",
         cancelButtonColor:"#d33",
-        confirmButtonText:"YES,Approve",
+        confirmButtonText:"YES,Logout",
       }).then((result)=>{
         if(result.isConfirmed){
         logoutUser()
