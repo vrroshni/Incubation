@@ -39,7 +39,7 @@ function LoginPage() {
                       <form onSubmit={handleSubmit(loginUser)}>
                         <div className="mb-3">
                           <label className="mb-1"><strong>Username</strong></label>
-                          <input type="text" className="form-control" name='username' placeholder='Username' {...register('username', registerOptions.username)} />
+                          <input type="text" className="form-control"  name='username' placeholder='Username' {...register('username', registerOptions.username)} />
                           <small className="text-danger">
                             {errors?.username && errors.username.message}
                           </small>

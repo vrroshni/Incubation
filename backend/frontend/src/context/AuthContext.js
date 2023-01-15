@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   );
   const [loading, setLoading] = useState(true);
   const [viewdetail, setviewdetails] = useState([])
-      const Swal = require("sweetalert2")
+  const Swal = require("sweetalert2")
 
 
   const Navigate = useNavigate();

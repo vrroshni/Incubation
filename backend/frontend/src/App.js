@@ -17,7 +17,6 @@ import AllSlots from "./components/AllSlots";
 import Profile from "./components/Profile";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import AllotedApplications from "./components/AllotedApplications";
 
 function App() {
   return (
@@ -35,7 +34,6 @@ function App() {
           <Route path="/approved" element={<ApprovedApplications/>} />
           <Route path="/pending" element={<PendingApplications/>} />
           <Route path="/rejected" element={<DeclinedApplications/>} />
-          <Route path="/alloted" element={<AllotedApplications/>} />
           <Route path="/allslots" element={<AllSlots/>} />
           </Route>
       

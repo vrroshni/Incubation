@@ -26,7 +26,6 @@ class UserSignup(APIView):
 
 class NewApplication(APIView):
     def post(self,request):
-        print(request.data,'.............................')
         newapplication=NewApplicationserializer(data=request.data)
         if newapplication.is_valid():
             newapplication.save()
@@ -37,7 +36,6 @@ class NewApplication(APIView):
 
 class UserApplications(APIView):
      def post(self,request,id):
-        print(id,'uuuuuuserrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
         applications=Application.objects.filter(user=id)
         All=AllApplicationserializer(applications,many=True)
         if All :
@@ -81,14 +79,12 @@ class ApprovedApplications(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 class RejectApplication(APIView):
     def post(self,request,id):
-        print('decl................................')
         application = Application.objects.filter(id=id)
         application.update(status="DECLINED")
         return Response (200)
 class RejectedApplications(APIView):
      def get(self,request):
         rejectedapplications=Application.objects.filter(status="DECLINED")
-        print(rejectedapplications)
         All=AllApplicationserializer(rejectedapplications,many=True)
         if All :
             return Response(All.data,status=200)

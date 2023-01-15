@@ -13,7 +13,6 @@ function AllApplications() {
     const { viewdetail, viewDetails } = useContext(AuthContext)
 
 
-    console.log(data, "ssssssssssssssssss")
     useEffect(() => {
         axios.get("http://127.0.0.1:8000/applications/").then((response) => {
             setData(response.data)
@@ -25,6 +24,7 @@ function AllApplications() {
             <Logo />
             <Header />
             <AdminSideBar />
+            
             <div className='content-body'>
                 <div className='container-fluid'>
                     <div className="col-lg-12">
@@ -53,8 +53,8 @@ function AllApplications() {
                                             <tbody>
                                                 {data.map((list, id) => {
                                                     return (
-                                                        <>
-                                                            <tr>
+                                                       
+                                                            <tr key={id}>
                                                                 <td><strong>{id + 1}</strong></td>
                                                                 <td>{list.date}</td>
                                                                 <td><a>
@@ -69,7 +69,7 @@ function AllApplications() {
                                                                 </td>
                                                             </tr>
 
-                                                        </>
+                                                        
                                                     )
                                                 })}
 
@@ -96,14 +96,14 @@ function AllApplications() {
                             </button>
                         </div>
                         <div className="modal-body ">
-                            <div class="dz-image-bx rounded d-flex justify-content-around">
-                                <div class="dz-media active me-3">
-                                    <img class="rounded" src={`http://127.0.0.1:8000${viewdetail.image}`} alt="" style={{
+                            <div className="dz-image-bx rounded d-flex justify-content-around">
+                                <div className="dz-media active me-3">
+                                    <img className="rounded" src={`http://127.0.0.1:8000${viewdetail.image}`} alt="" style={{
                                         height: "7.5rem",
                                         width: "8.5rem"
                                     }} />
                                 </div>
-                                <div class="dz-info">
+                                <div className="dz-info">
                                     <h5>{viewdetail && viewdetail.company_name}</h5>
                                     <p className='text-primary'>Applied on:{viewdetail && viewdetail.date}</p>
                                     <b>Details:</b>
